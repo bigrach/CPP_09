@@ -6,7 +6,7 @@
 /*   By: rlebigre <rlebigre.42angouleme@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/14 17:43:44 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/08/14 14:47:32 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/08/14 15:30:26 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 #include <iterator>
 #include <fstream>
 #include <map>
+#include <cstring>
+typedef std::map<std::string,int> thisMap;
+
 
 int check_files(int argc, char **argv, std::ifstream *database, std::ifstream *input)
 {
@@ -43,8 +46,8 @@ int check_files(int argc, char **argv, std::ifstream *database, std::ifstream *i
 int check_date_validity(std::string input)
 {
 	int year = std::strtol(input.c_str(), NULL, 10);
-	int month = std::strtol(input.c_str(), NULL, 10);
-	int day = std::strtol(input.c_str(), NULL, 10);
+	int month = std::strtol(&input[5], NULL, 10);
+	int day = std::strtol(&input[8], NULL, 10);
 
 	switch (month)
 	{
@@ -70,8 +73,8 @@ int check_date_validity(std::string input)
 	}
 }
 
-// throw errors instead of returns ?
-int decent_date(std::string input, int case)
+// throw errors instead of returns for better error handling ?
+int decent_date(std::string input)
 {
 	std::string dateFormat = "xxxx-xx-xx";
 
@@ -89,40 +92,47 @@ int decent_date(std::string input, int case)
 	return 0;
 }
 
-std::map<std::string, int> get_data(std::ifstream &database)
+std::map<std::string,int> makeMap(std::ifstream &file, char *format, int len)
 {
-	std::string buffer;
-	std::map<std::string, int> data;
+	std::string line;
+	thisMap currentMap;
 
-	while (!database.eof())
+	while (!file.eof())
 	{
 		char *leftovers = NULL;
-		std::getline(database, buffer);
-		if (buffer.size() < 13) // empty lines?
+		std::getline(file, line);
+		if (line.size() < 11 + len) // empty lines?
 			throw BadLine;
-		if (decent_date(buffer))
+		if (decent_date(line)) // pas de diff entre wrong format && wrong date rn
 			throw InvalidDate;
-		long value = strtol(&buffer[12], &leftovers, 10);
-		if (leftovers != NULL)
+		if (strncmp(&line[10], format, len) != 0)
+			throw InvalidFormat;
+		long value = strtol(&line[10 + len], &leftovers, 10);
+		if (leftovers == &line[10 + len] || leftovers != NULL)
 			throw ShitInLine;
-		else if (value > 1000)
+		else if (format == DataFormat && value > 1000)
 			throw BadValue;
-		data[buffer.substr(0, 10)] = value;
+		currentMap[line.substr(0, 10)] = value;
 	}
+	return currentMap;
 }
 
-
+void	makeshitup(thisMap data, thisMap input)
+{
+	
+}
 
 
 int	main(int argc, char **argv)
 {
 	std::ifstream database;
-	std::ifstream wanted;
-	if (check_files(argc, argv, &database, &wanted))
+	std::ifstream inputfile;
+
+	if (check_files(argc, argv, &database, &inputfile))
 		return 1;
 	try {
-		std::map<std::string, int> data = get_data(database);
-		std::map<std::string, int> input = checkwhatwewant();
+		thisMap data = makeMap(database, DataFormat, 2);
+		thisMap input = makeMap(inputfile, InputFormat, 3);
 		makeshitup(data, input);
 	} 
 	catch(std::exception &e) {
