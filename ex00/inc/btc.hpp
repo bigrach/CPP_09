@@ -6,7 +6,7 @@
 /*   By: rlebigre <rlebigre.42angouleme@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/27 18:24:28 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/08/14 15:30:30 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/08/14 18:40:13 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,5 @@
 
  #define DataFormat ", "
  #define InputFormat " |"
-
+// bitcoinexchange name
 #endif
