@@ -6,12 +6,13 @@
 /*   By: rlebigre <rlebigre.42angouleme@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/14 17:43:44 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/08/15 19:08:02 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/08/15 19:46:18 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
 
+// using the map container
 int	main(int argc, char **argv)
 {
 	std::ifstream database;
@@ -28,7 +29,9 @@ int	main(int argc, char **argv)
 	} 
 	catch(const char *e) {
 		std::cout << RED "Error in database: " << e << RESET << std::endl;
+		return 1;
 	}
+	return 0;
 }
 
 int	check_files(int argc, char **argv, std::ifstream &database, std::ifstream &input)

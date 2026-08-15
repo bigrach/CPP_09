@@ -6,12 +6,11 @@
 /*   By: rlebigre <rlebigre.42angouleme@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 18:53:11 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/08/15 19:13:03 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/08/15 19:54:12 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
-#include <vector>
 #include <cstring>
 #include <limits.h>
 #include <cstdlib>
