@@ -6,7 +6,7 @@
 /*   By: rlebigre <rlebigre.42angouleme@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 18:53:11 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/08/15 19:54:12 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/08/15 21:24:25 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,7 @@ std::map<std::string,double>	make_map(std::ifstream &file)
 		if (line.length() < MIN_LEN)
 			throw "Line not long enough to have all data.";
 		if (decent_date(line))
-		{
-			std::cout << "HERE--------- "<< line << std::endl;
 			throw "Invalid date.";
-		}
 		if (line[10] != *DataFormat)
 			throw "Invalid format.";
 		char *leftovers = NULL;
