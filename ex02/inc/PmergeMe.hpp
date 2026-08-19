@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlebigre <rlebigre.42angouleme@gmail.co    +#+  +:+       +#+        */
+/*   By: rlebigre <rlebigre@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/27 18:24:28 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/08/15 22:34:57 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/08/19 18:01:34 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include <string>
 #include <iostream>
-#include <deque>
+#include <vector>
 #include <list>
 #include <iomanip>
 #include <cstdlib>
@@ -26,19 +26,17 @@
  #define DBLUE "\x1b[1;36m"
  #define PURPLE "\x1B[1;35m"
 
-// OPERATIONS
-enum e_operations {
-	PLUS = '+',
-	MINUS = '-',
-	MULTIPLY = '*',
-	DIVIDE = '/'
-};
+typedef std::vector<int> vector;
 
 // FUNCTIONS
-void	car_rock_algo(std::deque<int> &deque, std::list<int> &list);
+bool	is_sorted_vector(std::vector<int> &array);
+void	test(vector &array);
+int	check_arguments(int argc, char **argv, vector &array, std::list<int> &list);
+/*
+void	car_rock_algo(std::vector<int> &array, std::list<int> &list);
 
 // CHECKS
-int	check_deque(std::deque<int> &deque);
+int	check_vector(std::vector<int> &array);
 int	check_list(std::list<int> &list);
-
+*/
 #endif
