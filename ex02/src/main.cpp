@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlebigre <rlebigre.42angouleme@gmail.co    +#+  +:+       +#+        */
+/*   By: rlebigre <rlebigre@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/14 17:43:44 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/08/15 22:32:22 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/08/18 17:36:27 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <limits.h>
 
 // using deque and list
+// algo is on page 192 of the document provided (180 in-book)
 int	main(int argc, char **argv)
 {
 	std::deque<int>	deque;
@@ -47,6 +48,8 @@ int	check_arguments(int argc, char **argv, std::deque<int> &deque, std::list<int
 		deque.push_back(number);
 		list.push_back(number);
 	}
+	if (deque.size() == 1)
+		throw "nothing to sort";
 	std::cout << std::setw(10) << PURPLE "Before: " << std::flush;
 	for (int i = 1; i < argc; ++i)
 		std::cout << argv[i] << ' ' << std::flush;
