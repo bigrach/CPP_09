@@ -6,7 +6,7 @@
 /*   By: rlebigre <rlebigre@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/14 17:43:44 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/08/19 18:02:51 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/08/20 15:56:51 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,13 @@ int	main(int argc, char **argv)
 		return 1;
 	}
 	test(array);
-	
 	return 0;
 }
 
 int	check_arguments(int argc, char **argv, vector &array, std::list<int> &list)
 {
-	if (std::string (argv[0]) != "./PmergeMe")
-		throw "Invalid program name, should be 'PmergeMe'.";
+	//if (std::string (argv[0]) != "./PmergeMe")
+	//	throw "Invalid program name, should be 'PmergeMe'.";
 
 	for (int i = 1; i < argc; ++i)
 	{
