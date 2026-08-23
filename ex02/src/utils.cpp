@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.cpp                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rlebigre <rlebigre@student.42angouleme.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/20 19:00:45 by rlebigre          #+#    #+#             */
+/*   Updated: 2026/08/23 19:50:15 by rlebigre         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "PmergeMe.hpp"
 
@@ -6,7 +17,7 @@ unsigned int	packets_nb(vector &array, unsigned int packetsize)
 	return array.size() / packetsize;
 }
 
-size_t	actual_index(unsigned int packetsize, unsigned int groupindex)
+unsigned int	actual_index(unsigned int packetsize, unsigned int groupindex)
 {
 	if ((groupindex - 1) * packetsize < 0)
 		return 0;
@@ -15,7 +26,7 @@ size_t	actual_index(unsigned int packetsize, unsigned int groupindex)
 
 int	packet_value(vector &array, unsigned int packetsize, unsigned int groupindex)
 {
-	if (array.size() == actual_index(packetsize, groupindex) + packetsize - 1)
+	if (array.size() <= actual_index(packetsize, groupindex) + packetsize - 1)
 		return *(array.end() - 1);
 	return array.at(actual_index(packetsize, groupindex) + packetsize - 1);
 }
@@ -24,6 +35,10 @@ void	loser_packet(vector &array, unsigned int packetsize, unsigned int groupinde
 {
 	vector::iterator target;
 	target = array.begin() + actual_index(packetsize, groupindex);
+	
+	if (target + packetsize > array.end())
+		packetsize = array.end() - target;
+	
 	while (packetsize)
 	{
 		destination.push_back(*target);
@@ -37,9 +52,11 @@ void	merge(vector &array, unsigned int packetsize, unsigned int groupindex)
 {
 	vector::iterator target;
 	vector temp;
+	int firstvalue = packet_value(array, packetsize, groupindex);
+	int secondvalue = packet_value(array, packetsize, groupindex + 1);
 
-	loser_packet(array, packetsize, groupindex, temp);
-	print_vector(temp);
+	if (firstvalue > secondvalue)
+		loser_packet(array, packetsize, groupindex, temp);
 	target = array.begin() + actual_index(packetsize, groupindex + 1);
 	array.insert(target, temp.begin(), temp.end());
 }

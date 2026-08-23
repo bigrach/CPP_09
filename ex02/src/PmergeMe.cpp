@@ -6,51 +6,99 @@
 /*   By: rlebigre <rlebigre@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 18:53:11 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/08/20 18:28:59 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/08/23 20:01:10 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
 //static int nbcompare = 0;
-
 //int len = *(jacob.end() - 2) + *(jacob.end() - 1) - 1;
+#include <cmath>
 
-
-void insert_packet_at_index(vector &array, int packetsize, unsigned int destgroupindex, vector &loser, unsigned int losergroupindex)
+void loser_from_winner(vector &array, vector &loser, unsigned int packetsize)
 {
-	unsigned int index = actual_index(packetsize, destgroupindex);
-	if (index > array.size())
-		index = array.size();
-	
-	vector::iterator origin = loser.begin() + actual_index(packetsize, losergroupindex);
-	vector::iterator dest = array.begin() + actual_index(packetsize, destgroupindex);
-	
-	array.insert(dest, origin, origin + packetsize);
-}
+	int i = 1;
 
-/** nul */
-void package_binary_insert(vector &array, vector &jacob, int packetsize, vector &loser, unsigned int losergroupindex)
-{
-	(void)jacob;
-	
-	// working with group index here
-	int start = 1;
-	int end = 4; // need working jacob
-	if ((unsigned int)end > array.size()) 
-		end = array.size();
-	int midpoint = end / 2;
-	int number = packet_value(loser, packetsize, losergroupindex);
-	while (start < end)
+	for (vector::iterator it = array.begin(); it + 1 < array.end(); it += packetsize)
 	{
-		if (number > array.at(actual_index(packetsize, midpoint)))
-			start = midpoint + 1;
-		else
-			end = midpoint - 1;
-		midpoint = (end + start) / 2;
+		loser_packet(array, packetsize, i, loser);
+		i++;
 	}
-	if (end < 1)
-		end = 1;
-	insert_packet_at_index(array, packetsize, end, loser, losergroupindex);
+
+	if (array.size() % packetsize != 0)
+		loser_packet(array, packetsize, i - 1, loser);
 }
 
-//16-18
+void	insert_losers(vector &array, vector &loser, unsigned int packetsize)
+{
+	vector jacob = jacob_sequence(loser, packetsize);
+
+	insert_packet_at_index(array, packetsize, 1, loser, 1);
+
+	std::cout << DBLUE "w first packg inserted array = ";
+	print_vector(array);
+	std::cout << DBLUE "w first packg inserted loser = ";
+	print_vector(loser);
+	std::cout << RESET;
+
+	unsigned int jacob_index = 1;
+	int index = 0;
+	int current;
+	while (jacob_index <= jacob.size() - 1)
+	{
+		index = jacob.at(jacob_index);
+		current = packet_value(loser, packetsize, index);
+		unsigned int where = binary_search_packets(array, packetsize, current);
+	
+		insert_packet_at_index(array, packetsize, where, loser, jacob.at(jacob_index));
+	
+		++index;
+		--jacob.at(jacob_index);
+		if (jacob.at(jacob_index) <= jacob.at(jacob_index - 1))
+			++jacob_index;
+	}
+	if (loser.size() % packetsize != 0)
+	{
+		current = packet_value(loser, packetsize, index + 1);
+		unsigned int where = binary_search_packets(array, packetsize, current);
+		insert_packet_at_index(array, packetsize, where, loser, packets_nb(loser, packetsize) + 1);
+	}
+	std::cout << DBLUE "array = ";
+	print_vector(array);
+	std::cout << DBLUE "loser = ";
+	print_vector(loser);
+	std::cout << RESET;
+}
+
+void	loser_winner(vector &array, unsigned int packetsize)
+{
+	unsigned int	totalpackets = packets_nb(array, packetsize);
+	unsigned int	groupindex = 1;
+
+	if (totalpackets < 2)
+		return ;
+
+	while (groupindex <= totalpackets - 1)
+	{
+		merge(array, packetsize, groupindex);
+		groupindex += 2;
+	}
+
+	loser_winner(array, 2 * packetsize);
+	if (packets_nb(array, packetsize) < 3)
+		return ;
+
+	vector loser;
+	loser_from_winner(array, loser, packetsize);
+
+	insert_losers(array, loser, packetsize);
+}
+
+void algo(vector &array)
+{
+
+	loser_winner(array, 1);
+	//packet_division(array, loser);
+	print_vector(array);
+
+}

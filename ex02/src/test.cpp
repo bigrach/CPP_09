@@ -1,13 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   test.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rlebigre <rlebigre@student.42angouleme.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/20 19:00:41 by rlebigre          #+#    #+#             */
+/*   Updated: 2026/08/23 19:35:36 by rlebigre         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "PmergeMe.hpp"
 
 void test(vector &array)
 {
-	(void)array;
-	binaryinsertpackage_tests();
-	binaryinsert_tests();
+	algo(array);
+
+	//(void)array;
+	//binaryinsertpackage_tests();
+	//binaryinsert_tests();
 
 }
-
+/*
 void binaryinsertpackage_tests(void)
 {
 	std::cout << PURPLE "trying binary insert (packgsize = 2, 2nd packt)" RESET << std::endl;
@@ -25,9 +39,9 @@ void binaryinsertpackage_tests(void)
 	print_vector(winner);
 
 	std::cout << PURPLE "packg binary insert packt size = 2, losergroupindex = 2" RESET << std::endl;
-	package_binary_insert(winner, jacob, 2, loser, 2);
+	packet_binary_insert(winner, jacob, 2, loser, 2);
 	print_vector(winner);
-}
+}*/
 
 void	binaryinsert_tests(void)
 {
@@ -49,6 +63,7 @@ void	binaryinsert_tests(void)
 	print_vector(array);
 }
 
+/*
 void	packetinsertindex_tests(vector &array)
 {
 	std::cout << PURPLE "insert packet at index" RESET << std::endl;
@@ -64,7 +79,7 @@ void	packetinsertindex_tests(vector &array)
 	print_vector(array);
 	insert_packet_at_index(array, 3, 1, test, 1);
 	print_vector(array);
-}
+}*/
 
 void	binarysearch_tests(vector &array)
 {
