@@ -6,7 +6,7 @@
 /*   By: rlebigre <rlebigre@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/20 19:00:45 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/08/24 17:39:28 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/08/24 18:20:02 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,11 @@ unsigned int	packets_nb(vector &array, unsigned int packetsize)
 
 unsigned int	actual_index(unsigned int packetsize, unsigned int groupindex)
 {
-	if ((groupindex - 1) * packetsize < 0)
-		return 0;
 	return (groupindex - 1) * packetsize;
 }
 
 int	packet_value(vector &array, unsigned int packetsize, unsigned int groupindex)
 {
-	if (array.size() <= actual_index(packetsize, groupindex) + packetsize - 1)
-		return *(array.end() - 1);
 	return array.at(actual_index(packetsize, groupindex) + packetsize - 1);
 }
 
@@ -38,7 +34,6 @@ void	loser_packet(vector &array, unsigned int packetsize, unsigned int groupinde
 	
 	if (target + packetsize > array.end())
 		return ;
-	//	packetsize = array.end() - target;
 	
 	while (packetsize)
 	{

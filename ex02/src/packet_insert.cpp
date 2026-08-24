@@ -6,7 +6,7 @@
 /*   By: rlebigre <rlebigre@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/20 19:00:29 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/08/24 18:11:36 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/08/24 18:14:36 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,16 @@ int	binary_search_packets(vector &array, unsigned int packetsize, int searchingf
 	if (end > total)
 		end = total;
 	int midpoint = (end + start) / 2;
-	int count = 0;
 	
 	while (start <= end)
 	{
-	//std::cout << GREEN "searching for = " << searchingfor << " compared to = " << packet_value(array, packetsize, midpoint) << RESET << std::endl;
 		if (searchingfor > packet_value(array, packetsize, midpoint))
 			start = midpoint + 1;
 		else
 			end = midpoint - 1;
 		midpoint = (end + start) / 2;
 		++nbcompare;
-		++count;
 	}
-	//std::cout << "number to insert = " << searchingfor << " number of compare = " << count << std::endl; 
 	if (end <= 0)
 		end = 1;
 	else
@@ -75,8 +71,6 @@ vector jacob_sequence(vector &array, unsigned int packetsize)
 		newJacob = *(jacob.end() - 1) + 2 * *(jacob.end() - 2);
 	}
 	jacob.push_back(newJacob);
-	//std::cout << "jacobref = ";
-	//print_vector(jacob);
 	return jacob;
 }
 
