@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RPN.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlebigre <rlebigre.42angouleme@gmail.co    +#+  +:+       +#+        */
+/*   By: rlebigre <rlebigre@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 18:53:11 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/08/15 21:06:01 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/08/24 18:29:29 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	process_line(std::string input)
 	{
 		if (i % 2 != 0 && input[i] != ' ')
 			throw "expected space";
-		else if (i % 2 == 0 && !isSignOrDigit(input[i]))
+		if (i % 2 == 0 && !isSignOrDigit(input[i]))
 			throw "expected digit or sign";
 		if (isdigit(input[i]))
 			numbers.push(std::atoi(&input[i]));

@@ -6,7 +6,7 @@
 /*   By: rlebigre <rlebigre@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/20 19:00:45 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/08/24 18:20:02 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/08/24 18:30:58 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ int	packet_value(vector &array, unsigned int packetsize, unsigned int groupindex
 
 void	loser_packet(vector &array, unsigned int packetsize, unsigned int groupindex, vector &destination)
 {
-	vector::iterator target;
-	target = array.begin() + actual_index(packetsize, groupindex);
+	vector::iterator	target = array.begin() + actual_index(packetsize, groupindex);
 	
 	if (target + packetsize > array.end())
 		return ;
@@ -46,10 +45,11 @@ void	loser_packet(vector &array, unsigned int packetsize, unsigned int groupinde
 // fancy swap - takes the first package and swaps it with the next one
 void	merge(vector &array, unsigned int packetsize, unsigned int groupindex)
 {
-	vector::iterator target;
-	vector temp;
-	int firstvalue = packet_value(array, packetsize, groupindex);
-	int secondvalue = packet_value(array, packetsize, groupindex + 1);
+	vector::iterator	target;
+	vector				temp;
+
+	int	firstvalue = packet_value(array, packetsize, groupindex);
+	int	secondvalue = packet_value(array, packetsize, groupindex + 1);
 
 	if (firstvalue > secondvalue)
 		loser_packet(array, packetsize, groupindex, temp);

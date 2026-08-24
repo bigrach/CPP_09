@@ -6,7 +6,7 @@
 /*   By: rlebigre <rlebigre@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 18:53:11 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/08/24 18:16:04 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/08/24 18:31:45 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ void	insert_losers(vector &array, vector &loser, unsigned int packetsize)
 	int	current;
 
 	insert_packet_at_index(array, packetsize, 1, loser, 1);
-	unsigned int jacob_index = 1;
-	unsigned int index = 0;
+
+	unsigned int	jacob_index = 1;
+	unsigned int	index = 0;
+
 	while (jacob_index <= jacob.size() - 1)
 	{
 		if ((unsigned int)jacob.at(jacob_index) > packets_nb(loser, packetsize))
@@ -73,7 +75,6 @@ void	loser_winner(vector &array, unsigned int packetsize)
 	
 	vector loser;
 	loser_from_winner(array, loser, packetsize);
-
 	insert_losers(array, loser, packetsize);
 }
 

@@ -4,7 +4,7 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -g
 NAME = PmergeMe
 
 # SOURCES
-SOURCES =	main.cpp PmergeMe.cpp basic_binary_things.cpp test.cpp utils.cpp vector_basics.cpp packet_insert.cpp
+SOURCES =	main.cpp PmergeMe.cpp utils.cpp vector_basics.cpp packet_insert.cpp
 
 # OBJECTS
 obj_dir = obj

@@ -6,7 +6,7 @@
 /*   By: rlebigre <rlebigre@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/14 17:43:44 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/08/24 17:50:14 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/08/24 18:32:26 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,12 @@ int	main(int argc, char **argv)
 
 	try {
 		check_arguments(argc, argv, array, list);
-		//car_rock_algo(vector, list);
+		algo(array); 
 	} 
 	catch(const char *e) {
 		std::cout << RED "Error: " << e << RESET << std::endl;
 		return 1;
 	}
-	test(array);
 	return 0;
 }
 

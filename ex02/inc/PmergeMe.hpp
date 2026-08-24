@@ -6,7 +6,7 @@
 /*   By: rlebigre <rlebigre@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/27 18:24:28 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/08/24 17:49:23 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/08/24 18:35:01 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,26 +29,14 @@
  #define GREEN "\e[1;32m"
 
 extern int nbcompare;
-typedef std::vector<int> vector;
+typedef std::vector<unsigned int> vector;
 
 // real business
-void algo(vector &array);
+void	algo(vector &array);
 
 // VECTOR BASICS
-void	print_vector(std::vector<int> &vector);
-bool	is_sorted_vector(std::vector<int> &array);
-
-// TESTS
-void	test(vector &array);
-void	binaryinsertpackage_tests(void);
-void	binaryinsert_tests(void);
-void	packetinsertindex_tests(vector &array);
-void	binarysearch_tests(vector &array);
-void	countingpackets_tests(vector &array);
-void	actualindex_tests();
-void	packetvalue_tests(vector &array);
-void	loserpackage_tests(vector &array);
-void	merge_tests(vector &array);
+void	print_vector(vector &vector);
+bool	is_sorted_vector(vector &array);
 
 // HELPER FUNCTIONS
 unsigned int	packets_nb(vector &array, unsigned int packetsize);
@@ -65,7 +53,6 @@ bool	binary_insert(vector &array, int number);
 
 // FUNCTIONS
 int		check_arguments(int argc, char **argv, vector &array, std::list<int> &list);
-//void	car_rock_algo(std::vector<int> &array, std::list<int> &list);
 
 // PACKET INSERT
 void	insert_packet_at_index(vector &array, unsigned int packetsize, unsigned int destgroupindex, vector &loser, unsigned int losergroupindex);
