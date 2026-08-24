@@ -6,7 +6,7 @@
 /*   By: rlebigre <rlebigre@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 18:53:11 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/08/24 18:31:45 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/08/24 18:38:33 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int howmany(int nb)
 	return maxComparison;
 }
 
+// need to fill array here
 void algo(vector &array)
 {
 	vector result(array);

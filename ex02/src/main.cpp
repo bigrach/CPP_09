@@ -6,7 +6,7 @@
 /*   By: rlebigre <rlebigre@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/14 17:43:44 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/08/24 18:32:26 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/08/24 18:38:12 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 #include <limits.h>
 
 int nbcompare = 0;
-// using vector and list
-// algo is on page 192 of the document provided (180 in-book)
+
 int	main(int argc, char **argv)
 {
 	vector	array;

@@ -6,7 +6,7 @@
 /*   By: rlebigre <rlebigre@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/27 18:24:28 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/08/24 18:35:01 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/08/24 18:37:43 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,7 @@ unsigned int	actual_index(unsigned int packetsize, unsigned int groupindex);
 int				packet_value(vector &array, unsigned int packetsize, unsigned int groupindex);
 void			loser_packet(vector &array, unsigned int packetsize, unsigned int groupindex, vector &destination);
 void			merge(vector &array, unsigned int packetsize, unsigned int groupindex);
-void			insert_packet_at_index(vector &array, int packetsize, unsigned int destgroupindex, vector &loser, unsigned int losergroupindex);
-void			packet_binary_insert(vector &array, vector &jacob, int packetsize, vector &loser, unsigned int losergroupindex);
-
-// BINARY TRIES
-bool	binary_search(vector &array, int searchingfor);
-bool	binary_insert(vector &array, int number);
+void			insert_packet_at_index(vector &array, unsigned int packetsize, unsigned int destgroupindex, vector &loser, unsigned int losergroupindex);
 
 // FUNCTIONS
 int		check_arguments(int argc, char **argv, vector &array, std::list<int> &list);
