@@ -6,7 +6,7 @@
 /*   By: rlebigre <rlebigre@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/20 19:00:45 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/08/23 19:50:15 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/08/24 17:39:28 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void	loser_packet(vector &array, unsigned int packetsize, unsigned int groupinde
 	target = array.begin() + actual_index(packetsize, groupindex);
 	
 	if (target + packetsize > array.end())
-		packetsize = array.end() - target;
+		return ;
+	//	packetsize = array.end() - target;
 	
 	while (packetsize)
 	{
@@ -57,6 +58,8 @@ void	merge(vector &array, unsigned int packetsize, unsigned int groupindex)
 
 	if (firstvalue > secondvalue)
 		loser_packet(array, packetsize, groupindex, temp);
+	++nbcompare;
 	target = array.begin() + actual_index(packetsize, groupindex + 1);
+
 	array.insert(target, temp.begin(), temp.end());
 }

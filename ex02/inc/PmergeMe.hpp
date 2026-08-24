@@ -6,7 +6,7 @@
 /*   By: rlebigre <rlebigre@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/27 18:24:28 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/08/23 19:34:52 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/08/24 17:49:23 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@
  #define RED "\x1B[1;91m"
  #define DBLUE "\x1b[1;36m"
  #define PURPLE "\x1B[1;35m"
+ #define GRAY "\x1b[2;37m"
+ #define GREEN "\e[1;32m"
 
+extern int nbcompare;
 typedef std::vector<int> vector;
 
 // real business
@@ -65,8 +68,8 @@ int		check_arguments(int argc, char **argv, vector &array, std::list<int> &list)
 //void	car_rock_algo(std::vector<int> &array, std::list<int> &list);
 
 // PACKET INSERT
-void insert_packet_at_index(vector &array, unsigned int packetsize, unsigned int destgroupindex, vector &loser, unsigned int losergroupindex);
-int		binary_search_packets(vector &array, unsigned int packetsize, int searchingfor);
+void	insert_packet_at_index(vector &array, unsigned int packetsize, unsigned int destgroupindex, vector &loser, unsigned int losergroupindex);
+int		binary_search_packets(vector &array, unsigned int packetsize, int searchingfor, int end);
 vector	jacob_sequence(vector &array, unsigned int packetsize);
 
 

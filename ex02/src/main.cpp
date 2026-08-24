@@ -6,13 +6,14 @@
 /*   By: rlebigre <rlebigre@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/14 17:43:44 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/08/20 15:56:51 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/08/24 17:50:14 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
 #include <limits.h>
 
+int nbcompare = 0;
 // using vector and list
 // algo is on page 192 of the document provided (180 in-book)
 int	main(int argc, char **argv)
