@@ -6,7 +6,7 @@
 /*   By: rlebigre <rlebigre@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/14 17:43:44 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/08/24 18:38:12 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/09/06 15:52:17 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	main(int argc, char **argv)
 	std::list<int>		list;
 
 	try {
-		check_arguments(argc, argv, array, list);
-		algo(array); 
+		check_arguments(argc, argv);
+		algo(argc, argv);
 	} 
 	catch(const char *e) {
 		std::cout << RED "Error: " << e << RESET << std::endl;
@@ -31,14 +31,16 @@ int	main(int argc, char **argv)
 	return 0;
 }
 
-int	check_arguments(int argc, char **argv, vector &array, std::list<int> &list)
+int	check_arguments(int argc, char **argv)
 {
-	//if (std::string (argv[0]) != "./PmergeMe")
-	//	throw "Invalid program name, should be 'PmergeMe'.";
+	if (std::string (argv[0]) != "./PmergeMe")
+		throw "Invalid program name, should be 'PmergeMe'.";
 
+	if (argc < 2)
+		throw "Nothing to sort";
+	
 	for (int i = 1; i < argc; ++i)
 	{
-		//std::cout << "arg = '" << argv[i] << "'" << std::endl;
 		char *leftovers;
 		long number = std::strtol(argv[i], &leftovers, 10);
 		if (number > INT_MAX || number < 0)
@@ -49,11 +51,8 @@ int	check_arguments(int argc, char **argv, vector &array, std::list<int> &list)
 			std::cout << "'" << leftovers << "'" << std::endl;
 			throw "shit in argument";
 		}
-		array.push_back(number);
-		list.push_back(number);
 	}
-	if (array.size() <= 1)
-		throw "nothing to sort";
+
 	std::cout << std::setw(10) << PURPLE "Before: " << std::flush;
 	for (int i = 1; i < argc; ++i)
 		std::cout << argv[i] << ' ' << std::flush;

@@ -6,13 +6,14 @@
 /*   By: rlebigre <rlebigre@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 18:53:11 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/08/24 18:38:33 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/09/06 16:06:41 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
 #include <cmath>
 #include <algorithm>
+#include <sys/time.h>
 
 void loser_from_winner(vector &array, vector &loser, unsigned int packetsize)
 {
@@ -91,10 +92,26 @@ int howmany(int nb)
 }
 
 // need to fill array here
-void algo(vector &array)
+void algo(int argc, char **argv)
 {
-	vector result(array);
+	vector array;
+
+	struct timeval startVec, endVec;
+	gettimeofday(&startVec, NULL);
+	double start = startVec.tv_sec * 1000000 + startVec.tv_usec;
+
+	for (int i = 1; i < argc; ++i)
+	{
+		char *leftovers;
+		long number = std::strtol(argv[i], &leftovers, 10);
+		array.push_back(number);
+	}
+
 	loser_winner(array, 1);
+	gettimeofday(&endVec, NULL);
+	double period = (endVec.tv_sec * 1000000 + endVec.tv_usec) - start;
+	std::cout << "Time to process a range of " << argc - 1 << " elements with std::vector : " << period << " us" << std::endl;
+	
 	if (is_sorted_vector(array))
 		std::cout << RED "amen" RESET << std::endl;
 

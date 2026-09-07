@@ -6,7 +6,7 @@
 /*   By: rlebigre <rlebigre@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/27 18:24:28 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/08/24 18:37:43 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/09/06 14:37:44 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ extern int nbcompare;
 typedef std::vector<unsigned int> vector;
 
 // real business
-void	algo(vector &array);
+void	algo(int argc, char **argv);
 
 // VECTOR BASICS
 void	print_vector(vector &vector);
@@ -47,7 +47,7 @@ void			merge(vector &array, unsigned int packetsize, unsigned int groupindex);
 void			insert_packet_at_index(vector &array, unsigned int packetsize, unsigned int destgroupindex, vector &loser, unsigned int losergroupindex);
 
 // FUNCTIONS
-int		check_arguments(int argc, char **argv, vector &array, std::list<int> &list);
+int	check_arguments(int argc, char **argv);
 
 // PACKET INSERT
 void	insert_packet_at_index(vector &array, unsigned int packetsize, unsigned int destgroupindex, vector &loser, unsigned int losergroupindex);
