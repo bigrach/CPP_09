@@ -6,7 +6,7 @@
 /*   By: rlebigre <rlebigre@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/20 19:00:49 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/08/24 18:34:21 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/09/12 15:57:22 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void	print_vector(vector &vector)
 	std::cout << RESET << std::endl;
 }
 
-bool	is_sorted_vector(vector &array)
+std::string	is_sorted_vector(vector &array)
 {
 	for (vector::iterator it = array.begin(); it + 1 != array.end(); ++it)
 	{
 		if (*it > *(it + 1))
-			return false;
+			return "not sorted";
 	}
-	return true;
+	return "sorted";
 }

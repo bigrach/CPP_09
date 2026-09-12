@@ -6,7 +6,7 @@
 /*   By: rlebigre <rlebigre@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/20 19:00:29 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/08/24 18:36:59 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/09/12 15:38:12 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	binary_search_packets(vector &array, unsigned int packetsize, int searchingfor, int end)
 {
 	int start = 1;
-	int total = packets_nb(array, packetsize);
+	int total = how_many_packets(array, packetsize);
 	if (end > total)
 		end = total;
 	int midpoint = (end + start) / 2;
@@ -36,13 +36,13 @@ int	binary_search_packets(vector &array, unsigned int packetsize, int searchingf
 	return end;
 }
 
-void	insert_packet_at_index(vector &array, unsigned int packetsize, unsigned int destgroupindex, vector &loser, unsigned int losergroupindex)
+void	insert_packet_at_index(vector &array, unsigned int packetsize, unsigned int destpacketindex, vector &loser, unsigned int loserpacketindex)
 {
-	unsigned int index_dest = actual_index(packetsize, destgroupindex);
+	unsigned int index_dest = actual_index(packetsize, destpacketindex);
 	if (index_dest > array.size())
 		index_dest = array.size();
 
-	unsigned int index_og = actual_index(packetsize, losergroupindex);
+	unsigned int index_og = actual_index(packetsize, loserpacketindex);
 	if (index_og > loser.size())
 		index_og = loser.size();
 
@@ -60,7 +60,7 @@ void	insert_packet_at_index(vector &array, unsigned int packetsize, unsigned int
 vector	jacob_sequence(vector &array, unsigned int packetsize)
 {
 	vector	jacob;
-	unsigned int max_size = packets_nb(array, packetsize);
+	unsigned int max_size = how_many_packets(array, packetsize);
 	if (array.size() % packetsize != 0)
 		++max_size;
 	jacob.push_back(1);

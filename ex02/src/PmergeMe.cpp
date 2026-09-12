@@ -6,7 +6,7 @@
 /*   By: rlebigre <rlebigre@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 18:53:11 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/09/06 16:06:41 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/09/12 17:09:34 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <algorithm>
 #include <sys/time.h>
 
-void loser_from_winner(vector &array, vector &loser, unsigned int packetsize)
+void separate_losers_from_winners(vector &array, vector &loser, unsigned int packetsize)
 {
 	int i = 1;
 
@@ -26,7 +26,7 @@ void loser_from_winner(vector &array, vector &loser, unsigned int packetsize)
 	}
 }
 
-void	insert_losers(vector &array, vector &loser, unsigned int packetsize)
+void	loser_insertion(vector &array, vector &loser, unsigned int packetsize)
 {
 	vector	jacob = jacob_sequence(loser, packetsize);
 	vector	jacobref(jacob);
@@ -39,10 +39,12 @@ void	insert_losers(vector &array, vector &loser, unsigned int packetsize)
 
 	while (jacob_index <= jacob.size() - 1)
 	{
-		if ((unsigned int)jacob.at(jacob_index) > packets_nb(loser, packetsize))
-			jacob.at(jacob_index) = packets_nb(loser, packetsize);
+		if ((unsigned int)jacob.at(jacob_index) > how_many_packets(loser, packetsize))
+			jacob.at(jacob_index) = how_many_packets(loser, packetsize);
+		
 		index = jacob.at(jacob_index);
 		current = packet_value(loser, packetsize, index);
+		
 		int end = jacobref.at(jacob_index - 1) + jacobref.at(jacob_index) - 1;
 		unsigned int where = binary_search_packets(array, packetsize, current, end);
 
@@ -51,35 +53,35 @@ void	insert_losers(vector &array, vector &loser, unsigned int packetsize)
 		--jacob.at(jacob_index);
 		if (jacob.at(jacob_index) <= jacobref.at(jacob_index - 1))
 			++jacob_index;
-		if ((unsigned int)jacobref.at(jacob_index - 1) >= packets_nb(loser, packetsize))
+		if ((unsigned int)jacobref.at(jacob_index - 1) >= how_many_packets(loser, packetsize))
 			break ;
 	}
 }
 
-void	loser_winner(vector &array, unsigned int packetsize)
+void	sort_by_packets(vector &array, unsigned int packetsize)
 {
-	unsigned int	totalpackets = packets_nb(array, packetsize);
-	unsigned int	groupindex = 1;
+	unsigned int	totalpackets = how_many_packets(array, packetsize);
+	unsigned int	packetindex = 1;
 
 	if (totalpackets < 2)
 		return ;
 
-	while (groupindex <= totalpackets - 1)
+	while (packetindex <= totalpackets - 1)
 	{
-		merge(array, packetsize, groupindex);
-		groupindex += 2;
+		merge(array, packetsize, packetindex);
+		packetindex += 2;
 	}
 
-	loser_winner(array, 2 * packetsize);
-	if (packets_nb(array, packetsize) < 3)
+	sort_by_packets(array, 2 * packetsize);
+	if (how_many_packets(array, packetsize) < 3)
 		return ;
 	
 	vector loser;
-	loser_from_winner(array, loser, packetsize);
-	insert_losers(array, loser, packetsize);
+	separate_losers_from_winners(array, loser, packetsize);
+	loser_insertion(array, loser, packetsize);
 }
 
-int howmany(int nb)
+int max_nb_comparisons(int nb)
 {
 	int maxComparison = 0;
 
@@ -91,29 +93,61 @@ int howmany(int nb)
 	return maxComparison;
 }
 
-// need to fill array here
-void algo(int argc, char **argv)
+void rockcaralgo(int argc, char **argv, vector &array)
 {
-	vector array;
-
-	struct timeval startVec, endVec;
-	gettimeofday(&startVec, NULL);
-	double start = startVec.tv_sec * 1000000 + startVec.tv_usec;
-
 	for (int i = 1; i < argc; ++i)
 	{
 		char *leftovers;
 		long number = std::strtol(argv[i], &leftovers, 10);
 		array.push_back(number);
 	}
+	sort_by_packets(array, 1);
+}
 
-	loser_winner(array, 1);
+void displayInfo(vector array, std::string what, int howManyTotal, int nbcompareW, size_t period)
+{
+	for (vector::iterator it = array.begin(); it != array.end(); ++it)
+		std::cout << *it << ' ' << std::flush;
+	std::cout << std::endl; 
+	std::cout << "Time to process a range of " << howManyTotal << " elements with " << what << ": " << period << " us" << std::endl;
+	std::cout << "Values in vector are " << is_sorted_vector(array) << std::endl;
+	std::cout << "Number of comparisons for vector: " << nbcompareW << " maximum allowed by algo = " << max_nb_comparisons(array.size()) << std::endl;
+	std::cout << "How many number in vector: " << array.size() << " how many in arguments: " << howManyTotal << std::endl;
+
+}
+
+/**
+ * @brief Timing the algo, and printing the necessary information. 
+ */
+void algo(int argc, char **argv)
+{
+	// vector part
+	vector first;
+	unsigned int nbcompareVec = 0;
+
+	struct timeval startVec, endVec;
+	gettimeofday(&startVec, NULL);
+	double startV = startVec.tv_sec * 1000000 + startVec.tv_usec;
+
+	rockcaralgo(argc, argv, first);
+
 	gettimeofday(&endVec, NULL);
-	double period = (endVec.tv_sec * 1000000 + endVec.tv_usec) - start;
-	std::cout << "Time to process a range of " << argc - 1 << " elements with std::vector : " << period << " us" << std::endl;
-	
-	if (is_sorted_vector(array))
-		std::cout << RED "amen" RESET << std::endl;
+	double periodV = (endVec.tv_sec * 1000000 + endVec.tv_usec) - startV;
+	nbcompareVec = nbcompare;
 
-	std::cout << "compare nb = " << nbcompare << " what it should be = " << howmany(array.size()) << std::endl;
+	nbcompare = 0;
+	// deque part
+	/*
+	deque second;
+	struct timeval startDeque, endDeque;
+	gettimeofday(&startVec, NULL);
+	double startD = startDeque.tv_sec * 1000000 + startDeque.tv_usec;
+
+	//rockcaralgo(argc, argv, second);
+
+	gettimeofday(&endDeque, NULL);
+	double periodD = (endDeque.tv_sec * 1000000 + endDeque.tv_usec) - startD;
+*/
+	std::cout << "After : " << std::flush;
+	displayInfo(first, "std::vector", argc - 1, nbcompareVec, periodV);
 }
