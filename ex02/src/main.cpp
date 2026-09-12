@@ -6,7 +6,7 @@
 /*   By: rlebigre <rlebigre@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/14 17:43:44 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/09/06 15:52:17 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/09/12 19:24:59 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@ int nbcompare = 0;
 
 int	main(int argc, char **argv)
 {
-	vector	array;
-	std::list<int>		list;
-
 	try {
 		check_arguments(argc, argv);
 		algo(argc, argv);
