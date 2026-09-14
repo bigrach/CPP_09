@@ -6,7 +6,7 @@
 /*   By: rlebigre <rlebigre@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 18:53:11 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/09/12 20:11:38 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/09/13 13:49:56 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,11 @@ void	insert_packet_at_index(T &array, unsigned int packetsize, unsigned int dest
 	if (index_og > loser.size())
 		index_og = loser.size();
 
-	typename T::iterator	origin = loser.begin() + index_og;
-	typename T::iterator	dest = array.begin() + index_dest;
 
 	for (unsigned int i = 0; i < packetsize; ++i)
 	{
+		typename T::iterator	origin = loser.begin() + index_og;
+		typename T::iterator	dest = array.begin() + index_dest;
 		if (origin + i >= loser.end())
 			return ;
 		array.insert(dest + i, *(origin + i));
@@ -157,7 +157,7 @@ void	loser_packet(T &array, unsigned int packetsize, unsigned int packetindex, T
 	while (packetsize)
 	{
 		destination.push_back(*target);
-		array.erase(target);
+		target = array.erase(target);
 		--packetsize;
 	}
 }
