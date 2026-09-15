@@ -6,7 +6,7 @@
 /*   By: rlebigre <rlebigre@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 18:53:11 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/09/15 15:23:39 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/09/15 15:29:17 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	make_calculations(thisMap data, double howmany, std::string &whatday)
 		return 1;
 	if (found == data.end() || (found->first != whatday))
 		--found;
-	std::cout << DBLUE whatday << " => " << howmany << " = " << found->second * howmany RESET << std::endl;
+	std::cout << DBLUE << whatday << " => " << howmany << " = " << found->second * howmany << RESET << std::endl;
 	return 0;
 }
 
