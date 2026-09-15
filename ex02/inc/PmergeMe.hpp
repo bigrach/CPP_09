@@ -6,7 +6,7 @@
 /*   By: rlebigre <rlebigre@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/27 18:24:28 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/09/12 19:58:39 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/09/15 14:44:04 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@
  #define BLUE "\x1B[1;96m"
  #define BROWN "\e[1;33m"
 
-extern int nbcompare;
 typedef std::vector<unsigned int> vector;
 typedef std::deque<unsigned int> deque;
 

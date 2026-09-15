@@ -6,7 +6,7 @@
 /*   By: rlebigre <rlebigre@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 18:53:11 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/09/15 14:41:16 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/09/15 15:25:47 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,16 @@ static bool	is_sorted_vector(T &array)
  * ░█▀▀░█▀█░█░░░█▀▄░█▀▀░░█░░░░░█░░█░█░▀▀█░█▀▀░█▀▄░░█░
  * ░▀░░░▀░▀░▀▀▀░▀░▀░▀▀▀░░▀░░░░▀▀▀░▀░▀░▀▀▀░▀▀▀░▀░▀░░▀░
  */
+
+/**
+ * @brief Binary search a certain portion of the T array for where to insert a packet
+ * @param array where we're looking to insert
+ * @param searchingfor what we're looking to insert
+ * @param end the index up to which we are looking at in the array 
+ * @returns where searchingfor should be inserted in the winner array (it is a group index)
+ */
 template <typename T>
-static int	binary_search_packets(T &array, unsigned int packetsize, int searchingfor, int end)
+static int	binary_search_packets(T &array, unsigned int packetsize, int searchingfor, int end, unsigned int &nbcompare)
 {
 	int start = 1;
 	int total = how_many_packets(array, packetsize);
@@ -147,7 +155,7 @@ static void	loser_packet(T &array, unsigned int packetsize, unsigned int packeti
 {
 	typename T::iterator	target = array.begin() + actual_index(packetsize, packetindex);
 
-	if (target + packetsize > array.end())
+	if (actual_index(packetsize, packetindex) + packetsize > array.size())
 		return ;
 
 	while (packetsize)
@@ -162,7 +170,7 @@ static void	loser_packet(T &array, unsigned int packetsize, unsigned int packeti
 	@brief Fancy swap - takes a packetindex's packet and swaps it with the next one
  */
 template <typename T>
-static void	merge(T &array, unsigned int packetsize, unsigned int packetindex)
+static void	merge(T &array, unsigned int packetsize, unsigned int packetindex, unsigned int &nbcompare)
 {
 	typename T::iterator	target;
 	T				temp;
@@ -191,7 +199,7 @@ static void separate_losers_from_winners(T &array, T &loser, unsigned int packet
 }
 
 template <typename T>
-static void	loser_insertion(T &array, T &loser, unsigned int packetsize)
+static void	loser_insertion(T &array, T &loser, unsigned int packetsize, unsigned int &nbcompare)
 {
 	T	jacob = jacob_sequence(loser, packetsize);
 	T	jacobref(jacob);
@@ -211,7 +219,7 @@ static void	loser_insertion(T &array, T &loser, unsigned int packetsize)
 		current = packet_value(loser, packetsize, index);
 
 		int end = jacobref.at(jacob_index - 1) + jacobref.at(jacob_index) - 1; // p185 before property 12
-		unsigned int where = binary_search_packets(array, packetsize, current, end);
+		unsigned int where = binary_search_packets(array, packetsize, current, end, nbcompare);
 
 		insert_packet_at_index(array, packetsize, where, loser, jacob.at(jacob_index));
 
@@ -224,7 +232,7 @@ static void	loser_insertion(T &array, T &loser, unsigned int packetsize)
 }
 
 template <typename T>
-static void	sort_by_packets(T &array, unsigned int packetsize)
+static void	sort_by_packets(T &array, unsigned int packetsize, unsigned int &nbcompare)
 {
 	unsigned int	totalpackets = how_many_packets(array, packetsize);
 	unsigned int	packetindex = 1;
@@ -234,17 +242,17 @@ static void	sort_by_packets(T &array, unsigned int packetsize)
 
 	while (packetindex <= totalpackets - 1)
 	{
-		merge(array, packetsize, packetindex);
+		merge(array, packetsize, packetindex, nbcompare);
 		packetindex += 2;
 	}
 
-	sort_by_packets(array, 2 * packetsize);
+	sort_by_packets(array, 2 * packetsize, nbcompare);
 	if (how_many_packets(array, packetsize) < 3)
 		return ;
 
 	T loser;
 	separate_losers_from_winners(array, loser, packetsize);
-	loser_insertion(array, loser, packetsize);
+	loser_insertion(array, loser, packetsize, nbcompare);
 }
 
 static int max_nb_comparisons(int nb)
@@ -260,7 +268,7 @@ static int max_nb_comparisons(int nb)
 }
 
 template <typename T>
-static double rockcaralgo(int argc, char **argv, T &array)
+static double rockcaralgo(int argc, char **argv, T &array, unsigned int &nbcompare)
 {
 	struct timeval startVec, endVec;
 	gettimeofday(&startVec, NULL);
@@ -272,25 +280,28 @@ static double rockcaralgo(int argc, char **argv, T &array)
 		long number = std::strtol(argv[i], &leftovers, 10);
 		array.push_back(number);
 	}
-	sort_by_packets(array, 1);
+	sort_by_packets(array, 1, nbcompare);
 	gettimeofday(&endVec, NULL);
 	return (endVec.tv_sec * 1000000 + endVec.tv_usec) - startV;
 }
 
 template <typename T>
-static void displayInfo(T &array, std::string what, unsigned int howManyTotal, int nbcompareW, size_t period)
+static void displayInfo(T &array, std::string what, unsigned int howManyTotal, int nbcompare, size_t period)
 {
-	std::cout << PURPLE "for " << what << ' ' << RESET << std::endl;
+	std::cout << PURPLE "for " + what << RESET << std::endl;
 	std::cout << BLUE "Time to process a range of " << howManyTotal << " elements with std::" << what << ": " << period << " us" << std::endl;
-	std::cout << BLUE "Number of comparisons for " << what << " = " << nbcompareW << std::endl;
-	if (array.size() ==  howManyTotal)
-		std::cout << GREEN << "There is the right amount of numbers in the array at the end." << RESET << std::endl;
+	
+	if (array.size() == howManyTotal)
+		std::cout << GREEN "There is the right amount of numbers in the array at the end." RESET << std::endl;
 	else
-		std::cout << RED << "There is NOT the right amount of numbers in the array at the end." << RESET << std::endl;
+		std::cout << RED "There is NOT the right amount of numbers in the array at the end." RESET << std::endl;
+	
 	if (is_sorted_vector(array))
-		std::cout << GREEN << "The " << what << " array is sorted" << RESET << std::endl;
+		std::cout << GREEN "The " + what + " array is sorted" RESET << std::endl;
 	else
-		std::cout << RED << "The " << what << " array is not sorted" << RESET << std::endl;
+		std::cout << RED "The " + what + " array is not sorted" RESET << std::endl;
+	
+	std::cout << BLUE "Number of comparisons for " + what << " = " << nbcompare << std::endl;
 	std::cout << "Maximum number of comparisons allowed by algo = " << max_nb_comparisons(array.size()) << RESET << std::endl;
 
 }
@@ -309,14 +320,12 @@ void algo(int argc, char **argv)
 	// vector part
 	vector first;
 	unsigned int nbcompareVec = 0;
-
-	double periodV = rockcaralgo(argc, argv, first);
-	nbcompareVec = nbcompare;
+	double periodV = rockcaralgo(argc, argv, first, nbcompareVec);
 
 	// deque part
 	deque second;
-	nbcompare = 0;
-	double periodD = rockcaralgo(argc, argv, second);
+	unsigned int nbcompareDeq = 0;
+	double periodD = rockcaralgo(argc, argv, second, nbcompareDeq);
 
 	std::cout << DBLUE "After : " << std::flush;
 	for (vector::iterator it = first.begin(); it != first.end(); ++it)
@@ -326,5 +335,5 @@ void algo(int argc, char **argv)
 	std::cout << RESET << std::endl;
 	displayInfo(first, "vector", argc - 1, nbcompareVec, periodV);
 	std::cout << RESET << std::endl;
-	displayInfo(second, "deque", argc - 1, nbcompareVec, periodD);
+	displayInfo(second, "deque", argc - 1, nbcompareDeq, periodD);
 }

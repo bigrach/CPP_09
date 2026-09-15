@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlebigre <rlebigre.42angouleme@gmail.co    +#+  +:+       +#+        */
+/*   By: rlebigre <rlebigre@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/14 17:43:44 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/08/15 19:46:18 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/09/15 15:19:08 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
