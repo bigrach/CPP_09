@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RPN.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlebigre <rlebigre.42angouleme@gmail.co    +#+  +:+       +#+        */
+/*   By: rlebigre <rlebigre@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/27 18:24:28 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/08/15 20:39:57 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/09/15 18:06:59 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 
 #include <string>
 #include <iostream>
+#include <stack>
+
+// EASIER NAME FOR THE STACK
+typedef std::stack<long> stack;
 
 // COLORS
  #define RESET "\x1b[0m"
@@ -31,7 +35,7 @@ enum e_operations {
 };
 
 // FUNCTIONS
-int	process_line(std::string input);
+long	process_line(std::string input);
 
 
 #endif

@@ -6,14 +6,13 @@
 /*   By: rlebigre <rlebigre@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 18:53:11 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/08/24 18:29:29 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/09/15 18:32:03 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "RPN.hpp"
 #include <limits.h>
 #include <cstdlib>
-#include <stack>
 
 int	isSign(const unsigned int c)
 {
@@ -25,11 +24,11 @@ int isSignOrDigit(const unsigned int c)
 	return (isSign(c) || isdigit(c));
 }
 
-int	surgery(std::stack<int> &numbers, unsigned int c)
+int	surgery(stack &numbers, unsigned int c)
 {
-	int	second = numbers.top();
+	long	second = numbers.top();
 	numbers.pop();
-	int	first = numbers.top();
+	long	first = numbers.top();
 	numbers.pop();
 
 	switch (c)
@@ -52,16 +51,14 @@ int	surgery(std::stack<int> &numbers, unsigned int c)
 			numbers.push(first / second);
 			break;
 	}
-
 	return 0;
 }
 
-int	process_line(std::string input)
+long	process_line(std::string input)
 {
 	int	i = 0;
 
-	std::stack<int>	numbers;
-
+	stack	numbers;
 	while (input[i])
 	{
 		if (i % 2 != 0 && input[i] != ' ')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlebigre <rlebigre.42angouleme@gmail.co    +#+  +:+       +#+        */
+/*   By: rlebigre <rlebigre@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/27 18:24:28 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/08/15 19:42:59 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/09/15 17:56:06 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <fstream>
 
 // EASIER NAME FOR THE MAP 
-typedef std::map<std::string,double> thisMap;
+typedef std::map<std::string,double> map;
 
 // COLORS
  #define RESET "\x1b[0m"
@@ -56,8 +56,8 @@ enum e_where {
  #define InputFormatLen 3
 
 // FUNCTIONS
-int								check_files(int argc, char **argv, std::ifstream &database, std::ifstream &input);
-std::map<std::string,double>	make_map(std::ifstream &file);
-void							study_input(thisMap data, std::ifstream &file);
+int		check_files(int argc, char **argv, std::ifstream &database, std::ifstream &input);
+map		make_map(std::ifstream &file);
+void	study_input(map data, std::ifstream &file);
 
 #endif

@@ -6,13 +6,13 @@
 /*   By: rlebigre <rlebigre@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/14 17:43:44 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/09/15 15:19:08 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/09/15 18:31:35 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
 
-// using the map container
+// using the map container, takes input as parameter, needs data.csv file in directory for it to work
 int	main(int argc, char **argv)
 {
 	std::ifstream database;
@@ -24,7 +24,7 @@ int	main(int argc, char **argv)
 		return 1;
 	}
 	try {
-		thisMap data = make_map(database);
+		map data = make_map(database);
 		study_input(data, inputfile);
 	} 
 	catch(const char *e) {
@@ -60,6 +60,7 @@ int	check_files(int argc, char **argv, std::ifstream &database, std::ifstream &i
 	{
 		std::cerr << RED << std::flush;
 		perror(argv[1]);
+		std::cerr << RESET << std::flush;
 		return 1;
 	}
 	return 0;

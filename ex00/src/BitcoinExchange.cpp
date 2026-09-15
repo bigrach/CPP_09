@@ -6,7 +6,7 @@
 /*   By: rlebigre <rlebigre@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 18:53:11 by rlebigre          #+#    #+#             */
-/*   Updated: 2026/09/15 15:29:17 by rlebigre         ###   ########.fr       */
+/*   Updated: 2026/09/15 17:55:02 by rlebigre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	check_date_validity(std::string input)
 			return (day > 28);
 
 		default:
-			std::cout << "salut " << std::endl;
 			return 1;
 	}
 }
@@ -65,10 +64,10 @@ int	decent_date(std::string input)
 	return 0;
 }
 
-thisMap	make_map(std::ifstream &file)
+map	make_map(std::ifstream &file)
 {
 	std::string line;
-	thisMap currentMap;
+	map currentMap;
 	
 	std::getline(file, line);
 	if (line != "date,exchange_rate")
@@ -76,6 +75,8 @@ thisMap	make_map(std::ifstream &file)
 	while (!file.eof())
 	{
 		std::getline(file, line);
+		if (line[0] == '\0')
+			continue ;
 		if (line.length() < MIN_LEN)
 			throw "Line not long enough to have all data.";
 		if (decent_date(line))
@@ -92,9 +93,9 @@ thisMap	make_map(std::ifstream &file)
 	return currentMap;
 }
 
-int	make_calculations(thisMap data, double howmany, std::string &whatday)
+int	make_calculations(map data, double howmany, std::string &whatday)
 {
-	thisMap::iterator found = data.lower_bound(whatday);
+	map::iterator found = data.lower_bound(whatday);
 	if (found == data.begin() && found->first != whatday)
 		return 1;
 	if (found == data.end() || (found->first != whatday))
@@ -103,7 +104,7 @@ int	make_calculations(thisMap data, double howmany, std::string &whatday)
 	return 0;
 }
 
-void	study_input(thisMap data, std::ifstream &file)
+void	study_input(map data, std::ifstream &file)
 {
 	std::string line;
 	char *leftovers = NULL;
